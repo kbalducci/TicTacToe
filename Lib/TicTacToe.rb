@@ -42,16 +42,47 @@ class Board
     end
 
   end
+#work on this later.
+ # def space_unavail
+  #  if @spaces[user_choice] == @spaces["X" || "O"]
+   #   puts "That spot is already taken. Please choose an available space."
+ #   end
+
+  def check_for_winners
+    if @spaces['1'] == @spaces['2'] && @spaces['2'] == @spaces['3']
+      true
+    elsif @spaces['4'] == @spaces['5'] && @spaces['5'] == @spaces['6']
+      true
+    elsif @spaces['7'] == @spaces['8'] && @spaces['8'] == @spaces['9']
+      true
+    elsif @spaces['1'] == @spaces['4'] && @spaces['4'] == @spaces['7']
+      true
+    elsif @spaces['2'] == @spaces['5'] && @spaces['5'] == @spaces['8']
+      true
+    elsif @spaces['3'] == @spaces['6'] && @spaces['6'] == @spaces['9']
+      true
+    elsif @spaces['1'] == @spaces['5'] && @spaces['5'] == @spaces['9']
+      true
+    elsif @spaces['3'] == @spaces['5'] && @spaces['5'] == @spaces['7']
+      true
+    else
+      false
+    end
+  end
 
 
 
 end
 
-  @board = Board.new
-  while @board.num_turns < 11
-    @board.displayBoard
-    @board.play
+@board = Board.new
+while @board.num_turns < 10
+  @board.displayBoard
+  @board.play
+  if @board.check_for_winners == true
+    puts "We have a winner!"
   end
+end
+
 
 # #computer AI
 # comp selects random 1-9
