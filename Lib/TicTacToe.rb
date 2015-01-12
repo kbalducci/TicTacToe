@@ -1,7 +1,7 @@
 puts "Welcome to Tic_Tac-Toe"
 puts "Here is our game board"
-puts "You can go first! You are Xs. The computer will be 0s."
-puts "Choose your square by typing the number of the square you want (1-9)"
+puts "The first player will be Xs and the second player will be Os."
+puts "Choose your square by typing the number of the square you want to mark.(1-9)"
 class Board
   attr_accessor :spaces, :num_turns
   def initialize
@@ -9,7 +9,7 @@ class Board
                "4" => "4", "5" => "5", "6" => "6",
                "7" => "7", "8" => "8", "9" => "9"}
     @player1 = "X"
-    @computer = "O"
+    @player2 = "O"
     @num_turns = 1
 
   end
@@ -26,7 +26,7 @@ class Board
       if @num_turns.odd?
         player_turn(@player1)
       else
-        player_turn(@computer)
+        player_turn(@player2)
       end
       @num_turns += 1
   end
@@ -38,18 +38,18 @@ class Board
     if @num_turns.odd?
       @spaces[user_choice] = @player1
     else
-      @spaces[user_choice] = @computer
+      @spaces[user_choice] = @player2
     end
 
   end
 #work on this later.
- # def space_unavail
+  def space_unavail
   #  if @spaces[user_choice] == @spaces["X" || "O"]
    #   puts "That spot is already taken. Please choose an available space."
- #   end
+  end
 
   def check_for_winners
-    if @spaces['1'] == @spaces['2'] && @spaces['2'] == @spaces['3']
+    if    @spaces['1'] == @spaces['2'] && @spaces['2'] == @spaces['3']
       true
     elsif @spaces['4'] == @spaces['5'] && @spaces['5'] == @spaces['6']
       true
@@ -75,13 +75,15 @@ class Board
 end
 
 @board = Board.new
-while @board.num_turns < 10
+while @board.num_turns < 10 #&& @board.check_for_winners == true
   @board.displayBoard
   @board.play
   if @board.check_for_winners == true
+    @board.displayBoard
     puts "We have a winner!"
+    break
   end
-end
+end #while @board.check_for_winners == true
 
 
 # #computer AI
