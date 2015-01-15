@@ -1,7 +1,7 @@
 
 describe 'Board' do
   it 'should present a board/grid labeled with cells 1-9' do
-    expect
+    expect @board.displaybBoard to exist
 end
 
   it 'correctly calculates whose turn it is' do

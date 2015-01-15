@@ -1,9 +1,6 @@
-puts "Welcome to Tic_Tac-Toe"
-puts "Here is our game board"
-puts "The first player will be Xs and the second player will be Os."
-puts "Choose your square by typing the number of the square you want to mark.(1-9)"
 class Board
-  attr_accessor :spaces, :num_turns
+  attr_accessor :spaces, :num_turns, :play, #:play_game
+  #what goes in as attr_accessor?
   def initialize
     @spaces = {"1" => "1", "2" => "2", "3" => "3",
                "4" => "4", "5" => "5", "6" => "6",
@@ -11,10 +8,22 @@ class Board
     @player1 = "X"
     @player2 = "O"
     @num_turns = 1
+    # are the 2 below correct?
+    @play
+    @welcome
+    # @play_game
 
   end
 
-  def displayBoard
+  def welcome
+    puts "Welcome to Tic_Tac-Toe"
+    puts "Here is our game board"
+    puts "The first player will be Xs and the second player will be Os."
+    puts "Choose your square by typing the number of the square you want to mark.(1-9)"
+  end
+
+
+  def display_board
     puts " #{@spaces['1']} | #{@spaces['2']} | #{@spaces['3']}"
     puts "------------"
     puts " #{@spaces['4']} | #{@spaces['5']} | #{@spaces['6']}"
@@ -23,30 +32,32 @@ class Board
   end
 
   def play
-      if @num_turns.odd?
-        player_turn(@player1)
-      else
-        player_turn(@player2)
-      end
-      @num_turns += 1
+    if @num_turns.odd?
+      player_turn(@player1)
+    else
+      player_turn(@player2)
+    end
+    @num_turns += 1
   end
 
   def player_turn(which_player)
     puts "Where would you like to move? (1-9)"
     user_choice = gets.chomp
-
     if @num_turns.odd?
       @spaces[user_choice] = @player1
     else
       @spaces[user_choice] = @player2
     end
+  end
 
-  end
 #work on this later.
-  def space_unavail
-  #  if @spaces[user_choice] == @spaces["X" || "O"]
+  # def space_unavail
+  #  if @spaces[user_choice] == "X"
    #   puts "That spot is already taken. Please choose an available space."
-  end
+    #elsif @spaces[user_choice] == "O"
+    #  puts "That spot is already taken. Please choose an available space."
+    #end
+  # end
 
   def check_for_winners
     if    @spaces['1'] == @spaces['2'] && @spaces['2'] == @spaces['3']
@@ -69,28 +80,45 @@ class Board
       false
     end
   end
+#I tried to turn this into a method, what's wrong?
+  def play_game
+    def initialize
+      @board = Board.new
+      while @board.num_turns < 10
+        @board.display_board
+        @board.play
+      if @board.check_for_winners == true
+        @board.display_board
+        puts "We have a winner!"
+        break
+      end
+    end
+  end
 
+end
+# thing i've tried to call start the game...
+# @board = Board.new  -- when I had this it just printed a ton of empty boards
+# @board.play
 
+@board = Board.new
+@board.welcome
+@board.play_game
 
 end
 
-@board = Board.new
-while @board.num_turns < 10 #&& @board.check_for_winners == true
-  @board.displayBoard
-  @board.play
-  if @board.check_for_winners == true
-    @board.displayBoard
-    puts "We have a winner!"
-    break
-  end
-end #while @board.check_for_winners == true
 
+#I moved all of this to the play_game method. What's wrong?
+# @board = Board.new
+# while @board.num_turns < 10
+#   @board.display_board
+#   @board.play
+#   if @board.check_for_winners == true
+#     @board.display_board
+#     puts "We have a winner!"
+#     break
+#   end
+# end
 
-# #computer AI
-# comp selects random 1-9
-# then check to make sure not already used
-# if not change num to string and then put into spaces
-#   if taken, generate another random number until avail
 
 
 
